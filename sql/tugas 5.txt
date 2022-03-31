@@ -1,0 +1,13 @@
+UPDATE `apotek` SET `quantity`='20' 
+WHERE id = '1'
+
+UPDATE `apotek` SET `jenis`='perut' 
+WHERE id = '1'
+
+UPDATE `apotek` SET `quantity`='20' 
+WHERE jenis = 'perut'
+
+UPDATE `apotek` SET `quantity`='20' 
+WHERE kadaluarsa <= '2020'
+
+DELETE FROM `apotek` WHERE kadaluarsa <= '2020'

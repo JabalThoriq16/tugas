@@ -8,9 +8,9 @@ $password = "";
 $conn = mysqli_connect($severname,$username,$password,$database);
 
 //check connection 
-if (!$conn) {
-    die("Connection failed :" .mysqli_connect_error());
-}
+// if (!$conn) {
+//     die("Connection failed :" .mysqli_connect_error());
+// }
 
 // echo "connection successfully";
 // mysqli_close($conn);

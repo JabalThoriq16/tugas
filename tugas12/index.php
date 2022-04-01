@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basic Component Veu.js</title>
+    <script src="https://unpkg.com/vue@3"></script>
 </head>
 <body>
     
@@ -13,13 +14,11 @@
         <label v-for="user in user">Name : {{user.name}}, Umur: {{user.age}}<br></label>
     </div>
 
-
-    <script src="https://unpkg.com/vue@3"></script>
     <script type="text/javascript">
-        var app = new Vue({
-            el:'#app',
-            data:{
-                massage: 'Hello Vue!',
+        Vue.createApp({
+            data() {
+            return {
+                message: 'Hello Vue!',
                 status: 'tampilkan',
                 user:[
                     {
@@ -28,15 +27,16 @@
                     },
                     {
                         name:'thoriq',
-                        age:'21'
+                        age:'20'
                     },
                     {
-                        name:'jabar',
-                        age:'22'
-                    }
+                        name:'Jabar',
+                        age:'23'
+                    },
                 ]
             }
-        })
+            }
+        }).mount('#app')
     </script>
 </body>
 </html>

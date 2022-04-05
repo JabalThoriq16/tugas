@@ -22,12 +22,12 @@ class BookSeeder extends Seeder
 
             $book->isbn = $faker->randomNumber(9);
             $book->title = $faker->name;
-            $book->year = $faker->rand('2010','2022');
-            $book->publisher_id = $faker->rand('1','20');
-            $book->author_id = $faker->rand('1','20');
+            $book->year = $faker->random('2010','2022');
+            $book->publisher_id = $faker->random('1','20');
+            $book->author_id = $faker->random('1','20');
             $book->catalog_id = $faker->rand('1','20');
-            $book->qty = $faker->rand('5','30');
-            $book->price = $faker->rand('1000','40000');
+            $book->qty = $faker->random('5','30');
+            $book->price = $faker->random('1000','40000');
 
             $book->save();
         }

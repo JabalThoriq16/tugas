@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Fixed Navbar Layout</title>
+    <title>@yield('header')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -24,14 +24,8 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                            class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
+                            class="fas fa-bars"></i>
+                    </a>
             </ul>
 
             <!-- Right navbar links -->
@@ -222,7 +216,7 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -250,6 +244,42 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a href="{{url('home')}}" class="nav-link {{request()->is('home') ? 'active' : ''}}">
+                                <i class="fas fa-tachometer-alt nav-icon"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('catalog')}}" class="nav-link {{request()->is('catalog') ? 'active' : ''}}">
+                                <i class="fas fa-edit nav-icon"></i>
+                                <p>Catalog</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('book')}}" class="nav-link {{request()->is('book') ? 'active' : ''}}">
+                                <i class="fas fa-book nav-icon"></i>
+                                <p>Book</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('author')}}" class="nav-link {{request()->is('author') ? 'active' : ''}}">
+                                <i class="fas fa-user nav-icon"></i>
+                                <p>Author</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('publisher')}}" class="nav-link {{request()->is('publisher') ? 'active' : ''}}">
+                                <i class="fas fa-user nav-icon"></i>
+                                <p>Publisher</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('member')}}" class="nav-link {{request()->is('member') ? 'active' : ''}}">
+                                <i class="fas fa-user-friends nav-icon"></i>
+                                <p>Member</p>
+                            </a>
                         </li>
                     </ul>
                 </nav>
@@ -261,7 +291,24 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Main content -->
-            @yield('content')
+            <div class="row justify-content-center">
+                <div class="col-md-11">
+                    <div class="card">
+                        <div class="card-header">@yield('header')</div>
+        
+                        <div class="card-body">
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+        
+                            
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -289,7 +336,7 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('asset/dist/js/adminlte.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('asset/dist/js/demo.js') }}"></script>
+    {{-- <script src="{{ asset('asset/dist/js/demo.js') }}"></script> --}}
 </body>
 
 </html>

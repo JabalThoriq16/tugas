@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object</title>
+</head>
+
+<body>
+    <script>
+        //object
+        var identitas = {
+            nama: "jabal",
+            tempat: "tangerang",
+            nik: 2012732108,
+            gender: "laki-laki",
+            alamat: (add) => {
+                return `alamat ${add}`
+
+            }
+        }
+
+        var karyawan = {
+            1: "edy",
+            2: "andi",
+            3: "bayu",
+            4: "hilal"
+        }
+
+        //memanggil object
+        console.log(identitas);
+        console.log(identitas.nama);
+        console.log(identitas.tempat);
+        console.log(identitas.nik);
+        console.log(identitas.gender);
+        console.log(identitas.alamat("jl mucktar"));
+        console.log(identitas["nama"]);
+        console.log(identitas["tempat"]);
+        console.log(identitas["nik"]);
+        console.log(identitas["gender"]);
+
+        console.log(karyawan[1]);
+
+        //menimpa data yang ada
+        identitas.nama = "thoriq";
+        console.log(identitas.nama);
+
+        //object dalam object
+        var karyawan1 = {
+            nam: "jabal",
+            alamat: "jl h mucktar",
+            tahun: {
+                1: 2010,
+                2: 2011,
+                3: 2012
+            }
+        }
+
+        var karyawan2 = {
+            nam: "jabal",
+            alamat: "jl h mucktar",
+            tahun: {
+                tahun1: 2010,
+                tahun2: 2011,
+                tahun3: 2012
+            }
+        }
+
+        //propertinya number
+        console.log(karyawan1.tahun[1]);
+        //prertinya opbject
+        console.log(karyawan1.tahun.tahun1);
+
+        var identitas1 = {
+            nama: "jabal",
+            tempat: "tangerang",
+            nik: 2012732108,
+            gender: "laki-laki",
+        }
+
+        //untuk mencetak
+        var tampil;
+        for (tampil in identitas1) {
+            document.write(identitas1[tampil] + "<br>");
+        }
+    </script>
+</body>
+
+</html>
+
+</html>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var data = /ab+c/;
+        console.log(data);
+
+        var tampil = new RegExp("ab+c");
+        console.log(tampil);
+
+        var data1 = "belajar Fullstack developer";
+        var validasi = /Fullstack/;
+        console.log(validasi.test(data1));
+        console.log(/Developer/.test(data1))
+
+        //mengikuti tulisan berdasarkan besarkecilnya
+        var nama = "Jabal Thoriq";
+        console.log(/Jabal/.test(nama));
+
+        //mengikuti tulisan
+        console.log(/Jabal/i.test(nama));
+        // \d cocok dengan seluruh digit angka atau dengan sam dengan[0-9]
+        // \D cocok dengan seluruh digit angka atau sama dengan
+        // \w cocok dengan seluruh huruf alfabet dan angka alfanumerik serta undescore
+        // \W cocok dengan seluruh hruf selain alfabet
+        // \s karakter whitespace atau spasi
+        // \S selain whitespace atau spasi cocok
+        // \t cocok dengankarakter tab
+        // \r cocok dengan karakter enter
+        // \n cocok dengan karakter penanda, pindah baris
+        // \v cocok dengan karakter vertikal
+        // \f cocok dengan karakter form
+        // \  cocok dengan escape
+
+
+        //contoh
+        var data3 = /\d\w\s/;
+
+        console.log(data3.test("id "));
+
+        //cek email
+        var dat4 = /.+@.\..+/;
+        console.log(dat4.test("jabalthoriq@gmail.com"));
+        console.log(dat4.test("kampoos@yahoo.com"));
+
+        //cek ada nama terkait
+        var check = /dia|aku|kita/;
+
+        console.log(check.test("hallo semua aku jabal"));
+    </script>
+</body>
+
+</html>

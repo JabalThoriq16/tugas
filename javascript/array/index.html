@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array</title>
+</head>
+
+<body>
+    <script>
+        //var name = "jabal thoriq";
+        //var alamat = "jakarta";
+        //var lahir = "tangerang";
+
+        // console.log(name); //data ke 1
+        //console.log(alamat); //data ke 2
+        //console.log(lahir); //data ke 3
+
+        //contoh array satu dimensi string
+        //var data = [
+        //    "tangerang", // data ke 0
+        //    "jakarta", // data ke 1
+        //    "jawa barat", // data ke 2
+        //    "sulawesi", //data ke 3
+        //    "jawa timur" //data ke 4
+        //];
+
+        //contoh array satu dimensi integer
+        //var nilai = [1, 2, 4, 6, 776, 3];
+
+        //contoh array satu dimensi mix
+        //var data1 = ["jabal", 1, null, true];
+        //consol.log(data[0]);
+
+        //contoh arry 2 dimensi
+        var keluarga = [
+            ["jabal", "tangerang", 24],
+            ["taufiq", "jakarta", 18],
+            ["parnianti", "karanganyar", 40]
+        ];
+        console.log(keluarga[0][1]); //tangerang
+        console.log(keluarga[1][0]); //taufiq
+
+        //bisa menulis arry seperti ini
+        var nama = new Array("jabal", "thoriq", "bayu", "agus");
+
+        console.log(Array.isArray(nama));
+        console.log(nama.length);
+
+        for (var i = 0; i < nama.length; i++) {
+            console.log(nama[i]);
+        }
+    </script>
+
+</body>
+
+</html>

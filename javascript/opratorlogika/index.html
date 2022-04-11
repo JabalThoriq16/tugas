@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oprator Logika</title>
+</head>
+
+<body>
+    <script>
+        //oprator &&(and)jika salah satu salah maka hasilnya salah
+        var username = "jabal";
+        var pass = 1234
+        if (username == "jabal" && pass == 1234) {
+            alert("login berhasil")
+        } else {
+            alert('username atau password salah')
+        }
+
+        //oprator ||(or)jika salah satu salah maka hasilnya benar
+        var username = "jabal";
+        var pass = 1234
+        if (username == "jabal" || pass == 1234) {
+            alert("login berhasil")
+        } else {
+            alert('username atau password salah')
+        }
+
+        //oprator !=(not)jika semua benar maka hasilnya salah
+        var username = "jabal";
+        var pass = 1234
+        if (username == "jabal" != pass == 1234) {
+            alert("login berhasil")
+        } else {
+            alert('username atau password salah')
+        }
+    </script>
+</body>
+
+</html>

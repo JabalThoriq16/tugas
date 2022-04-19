@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthorController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return view('admin.author.index');
+        $authors =Author::with('books')->paginate(10);
+        return view('admin.author.index', compact('authors'));
     }
 
     /**
@@ -35,7 +42,15 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required',
+            'email'=>'required',
+            'phone_number'=>'required',
+            'address'=>'required'
+        ]);
+
+        Author::create($request->all());
+        return redirect('authors');
     }
 
     /**

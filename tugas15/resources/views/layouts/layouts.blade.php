@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('asset/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('asset/dist/css/adminlte.min.css') }}">
+    @yield('css')
 </head>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
@@ -214,37 +215,6 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                        {{-- <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="../../index.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v1</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../index2.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v2</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../index3.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v3</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> --}}
                         <li class="nav-item">
                             <a href="{{url('home')}}" class="nav-link {{request()->is('home') ? 'active' : ''}}">
                                 <i class="fas fa-tachometer-alt nav-icon"></i>
@@ -252,7 +222,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('catalog')}}" class="nav-link {{request()->is('catalog') ? 'active' : ''}}">
+                            <a href="{{url('catalogs')}}" class="nav-link {{request()->is('catalog') ? 'active' : ''}}">
                                 <i class="fas fa-edit nav-icon"></i>
                                 <p>Catalog</p>
                             </a>
@@ -264,13 +234,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('author')}}" class="nav-link {{request()->is('author') ? 'active' : ''}}">
+                            <a href="{{url('authors')}}" class="nav-link {{request()->is('author') ? 'active' : ''}}">
                                 <i class="fas fa-user nav-icon"></i>
                                 <p>Author</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('publisher')}}" class="nav-link {{request()->is('publisher') ? 'active' : ''}}">
+                            <a href="{{url('publishers')}}" class="nav-link {{request()->is('publisher') ? 'active' : ''}}">
                                 <i class="fas fa-user nav-icon"></i>
                                 <p>Publisher</p>
                             </a>
@@ -335,8 +305,11 @@
     <script src="{{ asset('asset/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('asset/dist/js/adminlte.min.js') }}"></script>
-    <!-- AdminLTE for demo purposes -->
-    {{-- <script src="{{ asset('asset/dist/js/demo.js') }}"></script> --}}
+    <!-- Vue js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    @yield('js')
 </body>
 
 </html>

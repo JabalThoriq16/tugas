@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Catalog;
 use App\Models\Books;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
 class CatalogController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +20,8 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        $catalogs =Catalog::with('books')->get();
+        $catalogs =Catalog::with('books')->paginate(10);
+
         return view('admin.catalog.index', compact('catalogs'));
     }
 
@@ -26,7 +32,7 @@ class CatalogController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.catalog.create');
     }
 
     /**
@@ -37,7 +43,15 @@ class CatalogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required',
+        ]);
+        // $catalog =New Catalog;
+        // $catalog->name = $request->name;
+        // $catalog->seve();
+
+        Catalog::create($request->all());
+        return redirect('catalogs');
     }
 
     /**
@@ -59,7 +73,7 @@ class CatalogController extends Controller
      */
     public function edit(Catalog $catalog)
     {
-        //
+        return view('admin.catalog.edit', compact('catalog'));
     }
 
     /**
@@ -71,7 +85,12 @@ class CatalogController extends Controller
      */
     public function update(Request $request, Catalog $catalog)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required',
+        ]);
+
+        $catalog->update($request->all());
+        return redirect('catalogs');
     }
 
     /**
@@ -82,6 +101,7 @@ class CatalogController extends Controller
      */
     public function destroy(Catalog $catalog)
     {
-        //
+        $catalog->delete();
+        return redirect('catalogs');
     }
 }

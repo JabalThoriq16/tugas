@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     use HasFactory;
-
+    protected $fillable =['name','gender', 'email','phone_number','address'];
     public function user(){
         return $this->hasOne(User::class, 'member_id');
     }

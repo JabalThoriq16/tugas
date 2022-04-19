@@ -20,8 +20,14 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors =Author::with('books')->get();
-        return view('admin.author.index', compact('authors'));
+        return view('admin.author.index');
+    }
+
+    public function api()
+    {
+        $authors =Author::all();
+        $datatables = datatables()->of($authors)->addIndexColumn();
+        return $datatables->make(true);
     }
 
     /**
@@ -72,7 +78,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+       
     }
 
     /**
@@ -84,7 +90,15 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required',
+            'email'=>'required',
+            'phone_number'=>'required',
+            'address'=>'required'
+        ]);
+
+        $author->update($request->all());
+        return redirect('authors');
     }
 
     /**

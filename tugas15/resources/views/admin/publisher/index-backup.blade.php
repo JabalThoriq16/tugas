@@ -1,5 +1,5 @@
 @extends('layouts.layouts')
-@section('header', 'Author')
+@section('header', 'Publisher')
 @section('css')
 <link rel="stylesheet" href="{{asset('asset/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('asset/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -10,12 +10,12 @@
     <div class="card">
         <div class="card-header">
             <button type="button" class="btn btn-primary" @click="addData()">
-                Create Author
+                Create publisher
             </button>
         </div>
 
         <div class="card-body">
-            <table id="datatable" class="table table-bordered table-striped">
+            <table id="dataTable" class="table table-bordered table-striped">
                 <thead>
                     <tr class="text-center">
                         <th>No</th>
@@ -23,25 +23,41 @@
                         <th>Email</th>
                         <th>Phone Number</th>
                         <th>Address</th>
-                        <th class="text-center">Action</th>
+                        <th>Books</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                   
+                    @foreach ($publishers as $key => $publisher)
+                        <tr>
+                            <td class="text-center">{{ $key + 1 }}</td>
+                            <td>{{ $publisher->name }}</td>
+                            <td>{{ $publisher->email }}</td>
+                            <td class="text-center">{{ $publisher->phone_number }}</td>
+                            <td>{{ $publisher->address }}</td>
+                            <td class="text-center">{{ count($publisher->books) }}</td>
+                            <td class=" justify-content-center">
+                                <div class="action row" style="width: 130px">
+                                    <a class="btn btn-warning btn-sm col-sm-4 m-1" href="#" @click="editData({{$publisher}})">Edit</a>
+                                    <a class="btn btn-danger btn-sm col-sm-6 m-1" href="#" @click="deleteData({{ $publisher->id }})"> Hapus</a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
 
         <div class="card-footer clearfix">
-            {{-- {{ $authors->links() }} --}}
+            {{-- {{ $publishers->links() }} --}}
         </div>
     </div>
-    <div class="modal fade" id="Author" tabindex="-1" role="dialog" aria-labelledby="formAuthor" aria-hidden="true">
+    <div class="modal fade" id="Publisher" tabindex="-1" role="dialog" aria-labelledby="formPublisher" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form :action="actionUrl" method="post" autocomplete="off" @submit="submitForm($event, data.id)">
+                <form :action="actionUrl" method="post" autocomplete="off">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Form Author</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Form Publisher</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -90,101 +106,36 @@
 <script src="{{asset('asset/plugins/pdfmake/vfs_fonts.js')}}"></script>
 <script src="{{asset('asset/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{asset('asset/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-<script src="{{asset('asset/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-<script type="text/javascript">
-    var actionUrl = '{{url('authors')}}';
-    var apiUrl = '{{url('api/authors')}}';
-
-    var columns = [
-        {data:'DT_RowIndex', class:'text-center',orderable:true},
-        {data:'name', class:'text-center',orderable:true},
-        {data:'email', class:'text-center',orderable:true},
-        {data:'phone_number', class:'text-center',orderable:true},
-        {data:'address', class:'text-center',orderable:true},
-        {render:function(index,row,data,meta){
-            return `<a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">Edit</a>`+" "+`<a href="#" class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">Hapus</a>`;
-        }, orderable:false, width:'100px', class:'text-center'},
-    ];
-
-    var controller = new Vue({
-    el: '#controller',
-    data: {
-        datas:[],
-        data:{},
-        actionUrl,
-        apiUrl,
-        editStatus:false,
-    },
-    mounted: function(){
-        this.datatable();
-    },
-    methods:{
-        datatable(){
-            const _this = this;
-            _this.table = $('#datatable').DataTable({
-                ajax:{
-                    url: _this.apiUrl,
-                    type:'GET',
-                },
-                columns:columns
-            }).on('xhr',function(){
-                _this.datas = _this.table.ajax.json().data;
-            });
-        },
-        addData(){
-            this.data={};
-            this.editStatus =false;
-            $('#Author').modal();
-        },
-        editData(event, row){
-            this.data =this.datas[row];
-            this.editStatus =true;
-            $('#Author').modal();
-        },
-        deleteData(event, id){
-            if (confirm("Are You sure?")) {
-                $(event.target).parents('tr').remove();
-                axios.post(this.actionUrl+'/'+id, {_method:'DELETE'}).then(response=>{
-                    alert('Data has been removed');
-                });
-            }
-        },
-        submitForm(event,id){
-            event.preventDefault();
-            const _this = this;
-            var actionUrl = ! this.editStatus ? this.actionUrl : this.actionUrl+'/'+id;
-            axios.post(actionUrl, new FormData($(event.target)[0])).then(response=>{
-                $('#Author').modal('hide');
-                _this.table.ajax.reload();
-            });
-        },
-    }
+<script src="{{asset('asset/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script> 
+<script>
+    $(function () {
+      $("#dataTable").DataTable();
     });
 </script>
-{{-- <script type="text/javascript">
+<script type="text/javascript">
     var controller = new Vue({
     el: '#controller',
     data: {
         data:{},
-        actionUrl:'{{url('authors')}}',
+        actionUrl:'{{url('publishers')}}',
         editStatus: false
     },
     methods:{
         addData(){
             this.data={};
-            this.actionUrl = '{{url('authors')}}';
+            this.actionUrl = '{{url('publishers')}}';
             this.editStatus =false;
-            $('#Author').modal();
+            $('#Publisher').modal();
         },
         editData(data){
             this.data=data;
-            this.actionUrl = '{{url('authors')}}'+'/'+data.id;
+            this.actionUrl = '{{url('publishers')}}'+'/'+data.id;
             this.editStatus =true;
-            $('#Author').modal();
+            $('#Publisher').modal();
             console.log(data);
         },
         deleteData(id){
-            this.actionUrl = '{{url('authors')}}'+'/'+id;
+            this.actionUrl = '{{url('publishers')}}'+'/'+id;
             if (confirm("Are You sure?")) {
                 axios.post(this.actionUrl, {_method:'DELETE'}).then(response=>{
                     location.reload();
@@ -193,11 +144,5 @@
         }
     }
     })
-</script>   --}}
-<script>
-    $(function () {
-      $("#dataTable").DataTable(
-      );
-    });
 </script>
 @endsection

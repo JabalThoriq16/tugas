@@ -1,5 +1,10 @@
 @extends('layouts.layouts')
 @section('header', 'Author')
+@section('css')
+<link rel="stylesheet" href="{{asset('asset/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{asset('asset/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{asset('asset/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+@endsection
 @section('content')
 <div id="controller">
     <div class="card">
@@ -10,7 +15,7 @@
         </div>
 
         <div class="card-body">
-            <table class="table table-bordered">
+            <table id="dataTable" class="table table-bordered table-striped">
                 <thead>
                     <tr class="text-center">
                         <th>No</th>
@@ -19,21 +24,23 @@
                         <th>Phone Number</th>
                         <th>Address</th>
                         <th>Books</th>
-                        <th>Action</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($authors as $key => $author)
                         <tr>
-                            <td>{{ $key + 1 }}</td>
+                            <td class="text-center">{{ $key + 1 }}</td>
                             <td>{{ $author->name }}</td>
                             <td>{{ $author->email }}</td>
-                            <td>{{ $author->phone_number }}</td>
+                            <td class="text-center">{{ $author->phone_number }}</td>
                             <td>{{ $author->address }}</td>
                             <td class="text-center">{{ count($author->books) }}</td>
-                            <td class="text-center justify-content-center">
-                                <a class="btn btn-warning btn-sm" href="#" @click="editData({{$author}})">Edit</a>
-                                <a class="btn btn-danger btn-sm" href="#" @click="deleteData({{ $author->id }})"> Hapus</a>
+                            <td class="text-center" style="width: 110px">
+                                <div class="action row">
+                                    <a class="btn btn-warning btn-sm col-sm-4 m-1" href="#" @click="editData({{$author}})">Edit</a>
+                                    <a class="btn btn-danger btn-sm col-sm-6 m-1" href="#" @click="deleteData({{ $author->id }})"> Hapus</a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -42,7 +49,7 @@
         </div>
 
         <div class="card-footer clearfix">
-            {{ $authors->links() }}
+            {{-- {{ $authors->links() }} --}}
         </div>
     </div>
     <div class="modal fade" id="Author" tabindex="-1" role="dialog" aria-labelledby="formAuthor" aria-hidden="true">
@@ -88,37 +95,54 @@
 @endsection
 
 @section('js')
-    <script type="text/javascript">
-        var controller = new Vue({
-        el: '#controller',
-        data: {
-            data:{},
-            actionUrl:'{{url('authors')}}',
-            editStatus: false
+<script src="{{asset('asset/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('asset/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('asset/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('asset/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{asset('asset/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('asset/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('asset/plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{asset('asset/plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{asset('asset/plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{asset('asset/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('asset/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('asset/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<script type="text/javascript">
+    var controller = new Vue({
+    el: '#controller',
+    data: {
+        data:{},
+        actionUrl:'{{url('authors')}}',
+        editStatus: false
+    },
+    methods:{
+        addData(){
+            this.data={};
+            this.actionUrl = '{{url('authors')}}';
+            this.editStatus =false;
+            $('#Author').modal();
         },
-        methods:{
-            addData(){
-                this.data={};
-                this.actionUrl = '{{url('authors')}}';
-                this.editStatus =false;
-                $('#Author').modal();
-            },
-            editData(data){
-                this.data=data;
-                this.actionUrl = '{{url('authors')}}'+'/'+data.id;
-                this.editStatus =true;
-                $('#Author').modal();
-                console.log(data);
-            },
-            deleteData(id){
-                this.actionUrl = '{{url('authors')}}'+'/'+id;
-                if (confirm("Are You sure?")) {
-                    axios.post(this.actionUrl, {_method:'DELETE'}).then(response=>{
-                        location.reload();
-                    })
-                }
+        editData(data){
+            this.data=data;
+            this.actionUrl = '{{url('authors')}}'+'/'+data.id;
+            this.editStatus =true;
+            $('#Author').modal();
+            console.log(data);
+        },
+        deleteData(id){
+            this.actionUrl = '{{url('authors')}}'+'/'+id;
+            if (confirm("Are You sure?")) {
+                axios.post(this.actionUrl, {_method:'DELETE'}).then(response=>{
+                    location.reload();
+                })
             }
         }
-        })
-    </script>
+    }
+    })
+</script>  
+<script>
+    $(function () {
+      $("#dataTable").DataTable();
+    });
+</script>
 @endsection

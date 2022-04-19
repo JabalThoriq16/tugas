@@ -20,7 +20,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors =Author::with('books')->paginate(10);
+        $authors =Author::with('books')->get();
         return view('admin.author.index', compact('authors'));
     }
 
@@ -95,6 +95,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+        return redirect('authors');
     }
 }

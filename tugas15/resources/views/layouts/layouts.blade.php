@@ -228,7 +228,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('book')}}" class="nav-link {{request()->is('book') ? 'active' : ''}}">
+                            <a href="{{url('books')}}" class="nav-link {{request()->is('book') ? 'active' : ''}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Book</p>
                             </a>
@@ -246,7 +246,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('member')}}" class="nav-link {{request()->is('member') ? 'active' : ''}}">
+                            <a href="{{url('members')}}" class="nav-link {{request()->is('member') ? 'active' : ''}}">
                                 <i class="fas fa-user-friends nav-icon"></i>
                                 <p>Member</p>
                             </a>
